@@ -10,16 +10,10 @@ import bcrypt from 'bcryptjs';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { OAuth2Client } from 'google-auth-library';
-
 dotenv.config();
-
-// Initialize Google OAuth client
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-
-// MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/exploreLocal')
     .then(() => {
     console.log('Connected to MongoDB');
@@ -288,6 +282,11 @@ app.get('/currency', requireAuth, (req, res) => {
 app.get('/translate', requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, './FrontEnd/Templates/translate.html'));
 });
+
+app.get('/category/:category', requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, './FrontEnd/Templates/category-places.html'));
+});
+
 app.get('/similar', requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, './FrontEnd/Templates/similar-places.html'));
 });
@@ -719,4 +718,118 @@ const tagline = rawTagline.charAt(0).toUpperCase() + rawTagline.slice(1).toLower
         console.error('Tagline generation error:', error);
         res.status(500).json({ error: 'Failed to generate tagline' });
     }
+});
+
+// Add a new route for category-based similar places
+// Add a new API endpoint for Indian category places
+app.post('/api/get_indian_places/:category', async (req, res) => {
+  const { category } = req.params;
+  
+  // Make sure we're properly accessing the API key from environment variables
+  const UNSPLASH_API_KEY = process.env.UNSPLASH_API_KEY;
+  
+  // Function to fetch image from Unsplash with better error handling
+  const getImageFromUnsplash = async (query) => {
+    try {
+      console.log(`Fetching Unsplash image for: "${query} India"`);
+      
+      const response = await axios.get('https://api.unsplash.com/search/photos', {
+        params: {
+          query: `${query} India`,
+          per_page: 1,
+          orientation: 'landscape'
+        },
+        headers: {
+          'Authorization': `Client-ID ${UNSPLASH_API_KEY}`
+        }
+      });
+      
+      if (response.data.results && response.data.results.length > 0) {
+        console.log(`Successfully retrieved image for "${query} India"`);
+        return response.data.results[0].urls.regular;
+      }
+      
+      console.log(`No results found for "${query} India"`);
+      return null;
+    } catch (error) {
+      console.error(`Unsplash API error for "${query} India":`, error.response?.status, error.response?.statusText);
+      console.error('Error details:', error.response?.data || error.message);
+      return null;
+    }
+  };
+
+  const prompt = `
+    Analyze ${category} in India and provide:
+    1. A detailed description of this category in India, focusing on its unique characteristics in 50 words
+    2. 6 famous ${category} places in India with their key features
+    
+    Format response as:
+    Place Description: [brief-description]
+    
+    ---
+    
+    [
+      {
+        "name": "Place Name, Location",
+        "description": "Short description",
+        "things_to_do": ["Activity 1", "Activity 2", "Activity 3", "Activity 4", "Activity 5"]
+      }
+    ]
+  `;
+
+  try {
+    // Get main category image in parallel with Gemini API call
+    const mainCategoryImagePromise = getImageFromUnsplash(category);
+    
+    const geminiResponse = await axios.post(`${GEMINI_URL}?key=${process.env.GEMINI_API_KEY}`, {
+      contents: [{ parts: [{ text: prompt }] }]
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const textOutput = geminiResponse.data.candidates[0].content.parts[0].text;
+    
+    // Split and parse response
+    const [metadataSection, jsonSection] = textOutput.split('---');
+    
+    // Parse JSON places
+    let places;
+    try {
+      places = JSON.parse(jsonSection.trim());
+    } catch (err) {
+      const match = jsonSection.match(/\[.*\]/s);
+      places = match ? JSON.parse(match[0]) : [];
+    }
+
+    // Extract place description
+    const descMatch = metadataSection.match(/Place Description:\s*(.+)/s);
+    const description = descMatch ? descMatch[1].trim() : `${category} in India are popular destinations`;
+    
+    // Get main category image
+    const mainCategoryImage = await mainCategoryImagePromise;
+    
+    // Get images for all places in parallel
+    console.log('Fetching images for places...');
+    const imagePromises = places.map(place => getImageFromUnsplash(place.name));
+    const placeImages = await Promise.all(imagePromises);
+    
+    // Add images to places
+    places = places.map((place, index) => ({
+      ...place,
+      image_url: placeImages[index] || `https://source.unsplash.com/featured/?${encodeURIComponent(place.name)},india`
+    }));
+
+    return res.json({ 
+      place_description: description,
+      user_type: "Indian Tourism",
+      place_image: mainCategoryImage || `https://source.unsplash.com/featured/?${encodeURIComponent(category)},india`,
+      similar_places: places
+    });
+    
+  } catch (error) {
+    console.error('Error generating Indian places:', error);
+    return res.status(500).json({ error: 'Failed to generate Indian places', details: error.message });
+  }
 });

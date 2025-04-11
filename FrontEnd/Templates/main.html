@@ -86,7 +86,7 @@
                         Explore vibrant wildlife and exotic animals in beautifully curated enclosures, perfect for family outings and educational adventures.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Zoo')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Zoo')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                         Discover serene sanctuaries of spirituality, showcasing intricate architecture and centuries-old traditions.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Temple')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Temple')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                         Explore fascinating historical artifacts and exhibitions that bring the past to life.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Museum')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Museum')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                         Unwind in lush green spaces ideal for picnics, leisure walks, or just soaking in nature's tranquility.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Park')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Park')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                         Marvel at breathtaking panoramic vistas that capture the essence of the surrounding landscape.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Viewpoint')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Viewpoint')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                         Bask in golden sands and crystal-clear waters, a haven for relaxation and water sports.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Beach')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Beach')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@
                         Savor delectable cuisines in charming settings that cater to every palate and occasion.
                     </div>
                     <div class="buttons">
-                        <button onclick="sendCategory('Restaurant')">SEE MORE</button>
+                        <button onclick="redirectToSimilarPlaces('Restaurant')">SEE MORE</button>
                     </div>
                 </div>
             </div>
@@ -229,6 +229,11 @@
     </div>
 
     <script>
+        // Function to redirect to category-places page
+        function redirectToSimilarPlaces(category) {
+            window.location.href = `/category/${encodeURIComponent(category)}`;
+        }
+
         function sendCategory(category) {
             fetch('/map', {
                 method: 'POST',
@@ -248,7 +253,7 @@
             .catch(error => console.error('Error:', error));
         }
 
-        document.getElementById('categoryForm').addEventListener('submit', function(event) {
+        document.getElementById('categoryForm')?.addEventListener('submit', function(event) {
             event.preventDefault();
             const category = document.getElementById('category').value;
             sendCategory(category);

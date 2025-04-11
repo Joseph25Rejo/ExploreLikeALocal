@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore India - Discover Amazing Places</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=GoogleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function GoogleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,fr,de,zh-CN,ar,hi,ja,ru,pt,kn,ml,te,ta',
+                layout: google.translate.TranslateElement.InlineLayout.DROPDOWN,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, rgba(88, 70, 70, 1), rgba(0, 0, 0, 1));
+            color: #eee;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: #111;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(17, 17, 17, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-button {
+            color: #fff;
+            padding: 12px 15px;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            transition: .3s;
+            z-index: 1;
+            background: #111;
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-button:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 6px;
+        }
+        
+        .nav-button:hover:before {
+            opacity: 1;
+        }
+        
+        .nav-button:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 6px;
+            opacity: 0;
+        }
+        
+        .nav-button:hover:after {
+            opacity: 1;
+        }
+        
+        .profile-nav-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-avatar-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .signout {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .signout:hover {
+            transform: scale(1.1);
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.5);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #f1683a;
+            text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 0.8rem 1.5rem;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            transition: .3s;
+            z-index: 1;
+            background: #111;
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 6px;
+        }
+        
+        .back-button:hover:before {
+            opacity: 1;
+        }
+        
+        .back-button:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 6px;
+        }
+        
+        .back-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Section Title */
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: #f1683a;
+            position: relative;
+            padding-bottom: 1rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff0000, #ff7300);
+            border-radius: 2px;
+        }
+        
+        /* Places Grid */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 4rem;
+        }
+        
+        .place-card {
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .place-card:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+        
+        .place-card:hover:before {
+            opacity: 0.8;
+        }
+        
+        .place-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .place-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .place-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .place-card:hover .place-image img {
+            transform: scale(1.1);
+        }
+        
+        .place-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .place-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #f1683a;
+        }
+        
+        .place-description {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            flex-grow: 1;
+        }
+        
+        .things-to-do {
+            margin-top: auto;
+        }
+        
+        .things-to-do h4 {
+            color: #f1683a;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .things-to-do h4 i {
+            margin-right: 0.5rem;
+        }
+        
+        .things-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .things-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            border-bottom: 1px dashed #333;
+            color: #ddd;
+        }
+        
+        .things-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .things-list li:before {
+            content: '•';
+            color: #f1683a;
+            position: absolute;
+            left: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Loading and Error States */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(241, 104, 58, 0.2);
+            border-radius: 50%;
+            border-top: 5px solid #f1683a;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        /* Image Modal */
+        .image-modal-container {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .image-modal {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 2px solid #f1683a;
+            box-shadow: 0 0 20px rgba(241, 104, 58, 0.5);
+        }
+        
+        .modal-caption {
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #111;
+            color: #eee;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            color: #f1683a;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #f1683a;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #f1683a;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-links a:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 50%;
+        }
+        
+        .social-links a:hover:before {
+            opacity: 1;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .places-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(17, 17, 17, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s ease;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 15px 25px;
+                width: 200px;
+                text-align: center;
+            }
+            
+            #google_translate_element {
+                display: inline-block;
+                margin-top: 20px;
+            }
+            
+            .signout {
+                margin-top: 20px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                height: 50vh;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .back-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo"><i class="fas fa-globe-asia"></i>ExploreLikeALocal</a>
+        <button class="hamburger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="/map" class="nav-button"> Maps</a></li>
+            <li><a href="/planning" class="nav-button"> Planner</a></li>
+            <li><a href="/translate" class="nav-button">Translate</a></li>
+            <li><a href="/similar" class="nav-button">Similar-places</a></li>
+            <li><a href="/weather" class="nav-button">Weather</a></li>
+            <li><a href="/currency" class="nav-button">Wallet</a></li>
+            <li><a href="/news" class="nav-button">News</a></li>
+            <li>
+                <a href="/profile" class="nav-button profile-nav-button">
+                    <img src='https://avataaars.io/?avatarStyle=Transparent&topType=Eyepatch&facialHairType=Blank&clotheType=GraphicShirt&clotheColor=Black&graphicType=Skull&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown' class="profile-avatar-icon" alt="Profile" />
+                </a>
+            </li>
+            <li><a id="logoutBtn" class="signout"><i class="fas fa-sign-out-alt" style="font-size: 24px;color:red"></i></a></li>
+            <li id="google_translate_element"></li>
+        </ul>
+    </nav>
+
+    <div id="loading-container" class="loading-container">
+        <div class="spinner"></div>
+    </div>
+    
+    <div id="error-message" class="error-message" style="display: none;">
+        <p>Failed to load places. Please try again.</p>
+    </div>
+    
+    <div id="category-content" style="display: none;">
+        <section class="hero">
+            <img id="category-image" class="hero-image" src="" alt="Category Image">
+            <div class="hero-content">
+                <h1 id="category-title" class="hero-title">Discover India</h1>
+                <p id="category-description" class="hero-description">Loading amazing places in India...</p>
+            </div>
+        </section>
+        
+        <div class="container">
+            <a href="/main" class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</a>
+            
+            <h2 class="section-title">Explore Amazing Places</h2>
+            
+            <div id="places-grid" class="places-grid">
+                <!-- Places will be populated here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image modal -->
+    <div class="image-modal-container">
+        <div class="image-modal">
+            <span class="close-modal">&times;</span>
+            <img class="modal-image" src="" alt="Place Image">
+            <div class="modal-caption"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>ExploreLikeALocal helps you discover amazing places in India and around the world, providing authentic local experiences and travel insights.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/main">Home</a></li>
+                    <li><a href="/similar">Similar Places</a></li>
+                    <li><a href="/map">Maps</a></li>
+                    <li><a href="/planning">Trip Planner</a></li>
+                    <li><a href="/weather">Weather</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Bengaluru, India</li>
+                    <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                    <li><i class="fas fa-envelope"></i> info@explorelikealocal.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 ExploreLikeALocal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const loadingContainer = document.getElementById('loading-container');
+            const errorMessage = document.getElementById('error-message');
+            const categoryContent = document.getElementById('category-content');
+            const categoryTitle = document.getElementById('category-title');
+            const categoryDescription = document.getElementById('category-description');
+            const categoryImage = document.getElementById('category-image');
+            const placesGrid = document.getElementById('places-grid');
+            
+            // Modal elements
+            const imageModal = document.querySelector('.image-modal-container');
+            const modalImage = document.querySelector('.modal-image');
+            const modalCaption = document.querySelector('.modal-caption');
+            const closeModal = document.querySelector('.close-modal');
+            
+            // Get category from URL path
+            const pathParts = window.location.pathname.split('/');
+            const category = pathParts[pathParts.length - 1];
+            
+            // Function to open modal with image
+            function openImageModal(imgSrc, caption) {
+                modalImage.src = imgSrc;
+                modalCaption.textContent = caption;
+                imageModal.style.display = 'flex';
+            }
+            
+            // Close modal when clicking the X
+            closeModal.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside the image
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                }
+            });
+            
+            // Add event delegation for image clicks
+            document.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG' && 
+                    (e.target.closest('.hero-image') || 
+                     e.target.closest('.place-image'))) {
+                    openImageModal(e.target.src, e.target.alt);
+                }
+            });
+            
+            // Fetch similar places for the category
+            async function fetchCategoryPlaces() {
+                try {
+                    // Show loading, hide error and content
+                    loadingContainer.style.display = 'flex';
+                    errorMessage.style.display = 'none';
+                    categoryContent.style.display = 'none';
+                    
+                    // Make API request to our new Indian places endpoint
+                    const response = await fetch(`/api/get_indian_places/${encodeURIComponent(category)}`, {
+                        method: 'POST'
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('Category data:', data);
+                    
+                    // Update page with data
+                    displayCategoryData(data);
+                    
+                } catch (error) {
+                    console.error('Error fetching category places:', error);
+                    loadingContainer.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                }
+            }
+            
+            // Function to display category data
+            function displayCategoryData(data) {
+                // Hide loading
+                loadingContainer.style.display = 'none';
+                
+                // Update category info
+                categoryTitle.textContent = category + ' in India';
+                categoryDescription.textContent = data.place_description;
+                categoryImage.src = data.place_image;
+                categoryImage.alt = category;
+                
+                // Clear places grid
+                placesGrid.innerHTML = '';
+                                // Add places to grid
+                                if (data.similar_places && data.similar_places.length > 0) {
+                    data.similar_places.forEach(place => {
+                        // Create things to do list if it's an array
+                        let thingsToDoHTML = '';
+                        if (Array.isArray(place.things_to_do)) {
+                            thingsToDoHTML = `
+                                <ul class="things-list">
+                                    ${place.things_to_do.map(thing => `<li>${thing}</li>`).join('')}
+                                </ul>
+                            `;
+                        } else {
+                            thingsToDoHTML = `<p>${place.things_to_do || 'Information not available'}</p>`;
+                        }
+                        
+                        const placeCard = document.createElement('div');
+                        placeCard.className = 'place-card';
+                        
+                        placeCard.innerHTML = `
+                            <div class="place-content">
+                                <h3 class="place-name">${place.name}</h3>
+                                <p class="place-description">${place.description}</p>
+                                <div class="things-to-do">
+                                    <h4><i class="fas fa-list-ul"></i> Things to Do:</h4>
+                                    ${thingsToDoHTML}
+                                </div>
+                            </div>
+                        `;
+                        
+                        placesGrid.appendChild(placeCard);
+                    });
+                } else {
+                    placesGrid.innerHTML = '<p class="no-results">No similar places found</p>';
+                }
+                
+                // Show content
+                categoryContent.style.display = 'block';
+                
+                // Add animation to cards
+                const cards = document.querySelectorAll('.place-card');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100 * index);
+                });
+            }
+            
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                
+                // Toggle hamburger animation
+                const spans = hamburger.querySelectorAll('span');
+                if (hamburger.classList.contains('active')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+                } else {
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+            
+            // Fetch data when page loads
+            fetchCategoryPlaces();
+        });
+    </script>
+</body>
+</html>
