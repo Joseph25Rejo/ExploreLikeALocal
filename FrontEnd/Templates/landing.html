@@ -26,59 +26,25 @@
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
 </head>
-<body>
-    <nav>
-        <div class="logo">ExploreLikeALocal</div>
-        <button class="menu-toggle" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="nav-links">
-            <a href="#nearby" class="btn-primary rainbow-border">Nearby</a>
-            <a href="#preferences" class="btn-primary rainbow-border">Preferences</a>
-            <a href="#Top-Spots" class="btn-primary rainbow-border">Top Spots</a>
-            <a href="/login" class="btn-primary rainbow-border">Login/Signup</a>
-            <li id="google_translate_element"></li>
-        </div>
-        <button id="theme-toggle" class="icon-button">
-            <i data-lucide="sun"></i>
-        </button>
+<body>'<header>
+    <h2 class="logo">ExploreLikeALocal</h2>
+    <nav class="navigation">
+        <a href="#" class="active">Home</a>
+        <a href="/login">Login</a>
     </nav>
+</header>
 
-    <!-- Main Content -->
-    <div id="map-container" style="background-color: #0a0a1a;">
-      <div class="tooltip"></div>
-      <div class="controls">
-        <button id="zoom-in">+</button>
-        <button id="zoom-out">-</button>
-        <button id="reset">Reset</button>
-      </div>
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #00BFFF;"></div>
-          <span>High Connectivity (85-100)</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #1E90FF;"></div>
-          <span>Medium-High Connectivity (70-84)</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #4682B4;"></div>
-          <span>Medium Connectivity (50-69)</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #4169E1;"></div>
-          <span>Lower Connectivity (< 50)</span>
-        </div>
-      </div>
-      
-      <div class="content-box">
-        <h2 style="font-size: 2.5rem;">ExploreLikeALocal</h2>
-        <p style="font-size: 1.5rem;">Tired of Tourist traps? Explore Like A Local in ExploreLikeALocal</p>
-      </div>
-  </div>
-
+<section class="parallax">
+    <img src="/image/hill1.png" id="hill1">
+    <img src="/image/hill2.png" id="hill2">
+    <img src="/image/hill3.png" id="hill3">
+    <img src="/image/hill4.png" id="hill4">
+    <img src="/image/hill5.png" id="hill5">
+    <img src="/image/tree.png" id="tree">
+    <h2 id="text">Explore Like A Local</h2>
+    <img src="/image/leaf.png" id="leaf">
+    <img src="/image/plant.png" id="plant">
+  </section>
   <section class="features-section">
       <h2>How ExploreLikeALocal Helps You</h2>
       <p class="section-subtitle">Your intelligent travel companion for authentic local experiences</p>
@@ -172,102 +138,6 @@
           <!-- Continue the pattern for other features -->
       </div>
   </section>
-
-    <section id="nearby" class="destinations" style="text-align: center; margin-bottom: 40px;">
-        <h2>Spots Near You</h2>
-        <div class="destination-grid" style="text-align: center;">
-            <div class="destination-card" style="background-image: url('https://images.pexels.com/photos/2523828/pexels-photo-2523828.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
-                <div class="card-content">
-                    <h3>Mountain Trail</h3>
-                    <p>2.5 km away • Hiking • Nature</p>
-                </div>
-            </div>
-            <div class="destination-card" style="background-image: url('https://images.pexels.com/photos/1028636/pexels-photo-1028636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
-                <div class="card-content">
-                    <h3>Local Art Gallery</h3>
-                    <p>1.2 km away • Culture • Indoor</p>
-                </div>
-            </div>
-            <div class="destination-card" style="background-image: url('https://images.pexels.com/photos/696205/pexels-photo-696205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
-                <div class="card-content">
-                    <h3>Historic Market</h3>
-                    <p>0.8 km away • Food • Shopping</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="community-section">
-        <h2>Our Growing Community</h2>
-        <p>Join thousands of travelers discovering unique local experiences</p>
-        <div class="community-stats">
-            <div class="stat-item">
-                <div class="stat-number">50K+</div>
-                <p>Active Users</p>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">500+</div>
-                <p>Cities Covered</p>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">10K+</div>
-                <p>Local Experiences</p>
-            </div>
-        </div>
-        <div class="avatar-container">
-            <div class="avatar-group">
-              <img src="https://originui.com/avatar-80-03.jpg" alt="Avatar 01">
-              <img src="https://originui.com/avatar-80-04.jpg" alt="Avatar 02">
-              <img src="https://originui.com/avatar-80-05.jpg" alt="Avatar 03">
-              <img src="https://originui.com/avatar-80-06.jpg" alt="Avatar 04">
-            </div>
-            <p class="avatar-text">
-              Trusted by <strong>60K+</strong> developers.
-            </p>
-          </div>
-    </section>
-    <div class="testimonials-container">
-        <h2>Testimonials</h2>
-        <p>A few testimonies from a majority of those. </p>
-        <div class="testimonials-grid">
-          <!-- Image Section -->
-          <div class="testimonial-images">
-            <!-- Images will be inserted here via JavaScript -->
-          </div>
-    
-          <!-- Content Section -->
-          <div class="testimonial-content">
-            <div class="testimonial-info">
-              <h3 class="testimonial-name"></h3>
-              <p class="testimonial-designation"></p>
-              <p class="testimonial-quote"></p>
-            </div>
-            <div class="testimonial-controls">
-              <button class="control-button prev-button">
-                <svg class="prev" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-              </button>
-              <button class="control-button next-button">
-                <svg class="next" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About ExploreLikeALocal</h3>
-                <p>Discover local attractions based on your preferences and location.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 ExploreLikeALocal. All rights reserved.</p>
-        </div>
-    </footer>
     <script src="./landing.js"></script>
 </body>
 </html>
