@@ -17,6 +17,7 @@ body, html {
     position: sticky;
     top: 0;
     z-index: 1000;
+    height: 100px;
     width: 100%;
     transition: all 0.3s ease;
 }
@@ -40,6 +41,7 @@ body, html {
     gap: 20px;
     list-style: none;
     align-items: center;
+    font-size: 1.05rem;
 }
 
 .nav-link:before {
@@ -301,7 +303,12 @@ header a{
     line-height: 1.3em;
 }
 .carousel .list .item .topic{
-    color: #f1683a;
+    color: #75fcff;
+    font-size: 40px;
+}
+.carousel .list .item .des{
+    color: #eee;
+    font-size: 20px;    
 }
 .carousel .list .item .buttons{
     display: grid;
@@ -312,7 +319,7 @@ header a{
 }
 .carousel .list .item .buttons button{
     border: none;
-    background-color: #eee;
+    background-color: #75fcff;
     letter-spacing: 3px;
     font-family: Poppins;
     font-weight: 500;
