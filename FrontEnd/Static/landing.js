@@ -24,59 +24,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // GSAP animations for feature pairs with horizontal scroll and pinning
-    const featurePairs = gsap.utils.toArray('.feature-pair');
-    const featuresSection = document.querySelector('.features-section');
-    const featuresContainer = document.querySelector('.features-container');
+    // Simple feature list display
+    const featurePairs = document.querySelectorAll('.feature-pair');
     
-    // Set initial state for all features
-    gsap.set(featurePairs, { 
-        opacity: 0,
-        x: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-    });
-    
-    // Make first feature visible
-    gsap.set(featurePairs[0], { 
-        opacity: 1,
-        x: 0,
-        position: 'relative'
-    });
-    
-    // Create a timeline for feature transitions
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: featuresSection,
-            start: "top top",
-            end: `+=${featurePairs.length * 100}%`,
-            pin: true,
-            anticipatePin: 1,
-            scrub: 1,
-            pinSpacing: true
-        }
-    });
-    
-    // Add animations to the timeline
+    // Make all features visible in a list format
     featurePairs.forEach((pair, index) => {
-        if (index === 0) return; // Skip first one
+        // Remove any absolute positioning
+        pair.style.position = 'relative';
+        pair.style.opacity = '1';
+        pair.style.transform = 'none';
         
-        // Add animation to move previous pair out to the left
-        tl.to(featurePairs[index-1], {
-            opacity: 0,
-            x: '-100%',
-            duration: 0.5,
-            ease: "power2.inOut"
-        }, `feature${index}`);
+        // Add some spacing between features
+        pair.style.marginBottom = '80px';
         
-        // Add animation to bring current pair in from the right
-        tl.to(pair, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            ease: "power2.out"
-        }, `feature${index}`);
+        // Add a simple fade-in effect when scrolling
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        observer.observe(pair);
     });
 });

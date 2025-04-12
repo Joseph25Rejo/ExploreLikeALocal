@@ -123,16 +123,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
         
-        // Create HTML for original place with image
+        // Create HTML for original place with improved styling to match place-card-content
         originalPlaceContainer.innerHTML = `
-            <div class="original-place-info">
-                <div class="original-place-image">
-                    <img src="${data.place_image || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${searchInput.value}" class="clickable-image" />
-                </div>
-                <div class="original-place-details">
-                    <h2>${searchInput.value}</h2>
-                    <p class="place-description">${data.place_description}</p>
-                    <p class="place-type"><strong>Type:</strong> ${data.user_type || 'Not specified'}</p>
+            <div class="original-place-content">
+                <h2>${searchInput.value}</h2>
+                <p class="place-description">${data.place_description}</p>
+                <div class="place-tags">
+                    <span class="user-type-tag"><i class="fas fa-map-marker-alt"></i> ${data.user_type || 'Destination'}</span>
                 </div>
             </div>
         `;
@@ -161,9 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 placeCard.innerHTML = `
-                    <div class="place-image">
-                        <img src="${place.image_url || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${place.name}" class="clickable-image" />
-                    </div>
                     <div class="place-card-content">
                         <h3>${place.name}</h3>
                         <p>${place.description}</p>
