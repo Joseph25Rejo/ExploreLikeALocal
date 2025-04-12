@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Similar Places - ExploreLikeALocal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Discover Similar Places - ExploreLikeALocal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=GoogleTranslateElementInit"></script>
     <script type="text/javascript">
         function GoogleTranslateElementInit() {
@@ -20,45 +21,57 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="/main" class="logo">ExploreLikeALocal</a>
-        <button class="hamburger" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <ul class="nav-links">
-            <li><a href="/map" class="nav-button">Maps</a></li>
-            <li><a href="/planning" class="nav-button">Planner</a></li>
-            <li><a href="/translate" class="nav-button">Translate</a></li>
-            <li><a href="/weather" class="nav-button">Weather</a></li>
-            <li><a href="/currency" class="nav-button">Wallet</a></li>
-            <li><a href="/news" class="nav-button">News</a></li>
-            <li><a href="/similar-places" class="nav-button active">Similar Places</a></li>
-            <li><a id="logoutBtn" class="signout"><i class="fas fa-sign-out-alt" style="font-size: 36px;color:red"></i></a></li>
-            <li id="google_translate_element"></li>
-        </ul>
+        <div class="nav-container">
+            <a href="/main" class="logo">
+                <i class="fas fa-compass"></i> ExploreLikeALocal
+            </a>
+            <button class="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/map" class="nav-button"> Maps</a></li>
+                <li><a href="/planning" class="nav-button"> Planner</a></li>
+                <li><a href="/translate" class="nav-button"> Translate</a></li>
+                <li><a href="/weather" class="nav-button"> Weather</a></li>
+                <li><a href="/currency" class="nav-button">Wallet</a></li>
+                <li><a href="/news" class="nav-button">News</a></li>
+                <li><a id="logoutBtn" class="signout"> Logout</a></li>
+                <li id="google_translate_element" class="translate-element"></li>
+            </ul>
+        </div>
     </nav>
 
     <main class="similar-places-container">
-        <section class="search-section">
-            <div class="search-container">
-                <h1>Discover Similar Places</h1>
-                <p>Enter a location to find similar travel destinations around the world</p>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Discover Your Next Adventure</h1>
+                <p>Find amazing destinations similar to places you already love</p>
                 <div class="search-box">
-                    <input type="text" id="place-search" placeholder="Enter a place (e.g., Ooty, Paris, New York)" />
-                    <button id="search-button"><i class="fas fa-search"></i> Find Similar Places</button>
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="place-search" placeholder="Enter a place (e.g., Bali, Santorini, Kyoto)" />
+                    <button id="search-button">Explore</button>
+                </div>
+                <div class="popular-searches">
+                    <span>Popular:</span>
+                    <a href="#" class="popular-tag" data-place="Bali">Bali</a>
+                    <a href="#" class="popular-tag" data-place="Santorini">Santorini</a>
+                    <a href="#" class="popular-tag" data-place="New York">New York</a>
+                    <a href="#" class="popular-tag" data-place="Kyoto">Kyoto</a>
                 </div>
             </div>
         </section>
 
         <div id="loading-indicator" class="loading-indicator">
             <div class="spinner"></div>
-            <p>Finding amazing places for you...</p>
+            <p>Discovering amazing places for you...</p>
         </div>
 
         <div id="error-message" class="error-message">
             <i class="fas fa-exclamation-circle"></i>
             <p>Sorry, we couldn't find similar places. Please try another location.</p>
+            <button class="try-again-btn">Try Again</button>
         </div>
 
         <section id="results-container" class="results-container">
@@ -66,13 +79,46 @@
                 <!-- Original place details will be inserted here -->
             </div>
 
-            <h2 class="similar-places-heading">Similar Destinations You Might Like</h2>
+            <div class="similar-places-header">
+                <h2>Similar Destinations You Might Love</h2>
+                <p>Based on your interest in <span id="searched-place-name">this destination</span></p>
+            </div>
             
             <div id="similar-places-grid" class="similar-places-grid">
                 <!-- Similar places cards will be inserted here -->
             </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ExploreLikeALocal</h3>
+                <p>Your intelligent travel companion for authentic local experiences</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/main">Home</a></li>
+                    <li><a href="/map">Maps</a></li>
+                    <li><a href="/planning">Planner</a></li>
+                    <li><a href="/similar-places">Similar Places</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 ExploreLikeALocal. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="/similar-places.js"></script>
     <script>
@@ -99,6 +145,22 @@
             } catch (error) {
                 console.error('Logout error:', error);
             }
+        });
+
+        // Popular search tags
+        document.querySelectorAll('.popular-tag').forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                const place = e.target.dataset.place;
+                document.getElementById('place-search').value = place;
+                document.getElementById('search-button').click();
+            });
+        });
+
+        // Try again button
+        document.querySelector('.try-again-btn')?.addEventListener('click', () => {
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('place-search').focus();
         });
     </script>
 </body>

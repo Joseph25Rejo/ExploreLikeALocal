@@ -8,6 +8,9 @@ let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
 let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
 let timeDom = document.querySelector('.carousel .time');
 
+// Add logout button DOM reference
+const logoutBtn = document.getElementById('logoutBtn');
+
 thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
 let timeRunning = 3000;
 let timeAutoNext = 7000;
@@ -21,10 +24,30 @@ prevDom.onclick = function(){
 }
 let runTimeOut;
 let runNextAuto = setTimeout(() => {
-    next.click();
+    nextDom.click(); // Fixed: changed from next.click() to nextDom.click()
 }, timeAutoNext)
+
+// Add logout functionality
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+        fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+        })
+        .catch(error => console.error('Logout error:', error));
+    });
+}
+
 function showSlider(type){
-    let  SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+    let SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
     let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
     
     if(type === 'next'){
@@ -44,6 +67,6 @@ function showSlider(type){
 
     clearTimeout(runNextAuto);
     runNextAuto = setTimeout(() => {
-        next.click();
+        nextDom.click(); // Fixed: changed from next.click() to nextDom.click()
     }, timeAutoNext)
 }
