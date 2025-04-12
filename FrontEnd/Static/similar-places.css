@@ -31,7 +31,7 @@ body, html {
 /* Navbar Styles - Matching main.css */
 .navbar {
     background: #111;
-    padding: 15px 30px;
+    padding: 10px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -63,14 +63,14 @@ body, html {
     display: flex;
     gap: 20px;
     list-style: none;
-    align-items: center;
+    align-items: left;
 }
 
 /* Updated nav-button to match main.css */
 .nav-button {
     color: #fff;
     padding: 12px 10px;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
     position: relative;
     transition: .3s;
