@@ -427,10 +427,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('vacationForm');
     const shareBtn = document.getElementById('shareBtn');
     const downloadBtn = document.getElementById('downloadBtn');
-
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    themeToggle.setAttribute('aria-label', 'Toggle dark/light mode');
     // Form submission
     form.addEventListener('submit', handleFormSubmit);
+    // Add theme toggle to the DOM
+    document.body.appendChild(themeToggle);
+    
+    // Theme toggle functionality
+    const savedTheme = localStorage.getItem('planningTheme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
 
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        localStorage.setItem('planningTheme', isLight ? 'light' : 'dark');
+        themeToggle.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
     // Share button
     shareBtn.addEventListener('click', shareItinerary);
 

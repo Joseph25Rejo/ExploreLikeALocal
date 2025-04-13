@@ -313,3 +313,7 @@ header {
     margin: 0 auto;
     padding: 0 20px;
 }
+.logoimg {
+    max-width: 120px;
+    height: auto;
+}
